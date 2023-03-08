@@ -24,6 +24,15 @@ router.post('/', checkProjectShape, (req, res, next) => {
         .catch(next)
 })
 
+router.delete('/:id', checkProjectId, (req, res, next) => {
+    Projects.remove(req.params.id)
+        .then(() => {
+            console.log(`Project with id ${req.params.id} was successfully deleted.`)
+            res.status(200).json()
+        })
+        .catch(next)
+})
+
 router.use((err, req, res, next) => {
     res.status(err.status || 500).json({
         message: err.message,
