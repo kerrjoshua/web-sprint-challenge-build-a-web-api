@@ -12,4 +12,8 @@ server.use('/api/projects', projectRoutes)
 // Build your projects router in /api/projects/projects-router.js
 // Do NOT `server.listen()` inside this file!
 
+server.use('*', (req, res) => {
+    res.status(404).json({ message: 'That resource doesn\'t seem to exist yet.'})
+})
+
 module.exports = server;
