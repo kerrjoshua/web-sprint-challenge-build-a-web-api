@@ -1,6 +1,6 @@
 const express = require('express')
 const Actions = require('./actions-model')
-const {checkActionBody} = require('./actions-middlware')
+const { checkActionBody, checkActionId } = require('./actions-middlware')
 
 const router = express.Router();
 
@@ -10,6 +10,10 @@ router.get('/', (req, res, next) => {
             res.json(actions)
         })
         .catch(next)
+})
+
+router.get('/:id', checkActionId, (req, res, next) => {
+    res.json(req.action)
 })
 
 router.post('/', checkActionBody, (req, res, next) => {
