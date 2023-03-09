@@ -1,5 +1,6 @@
 const express = require('express')
 const Actions = require('./actions-model')
+const {checkActionBody} = require('./actions-middlware')
 
 const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get('/', (req, res, next) => {
         .catch(next)
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', checkActionBody, (req, res, next) => {
     Actions.insert(req.body)
         .then(action => {
             res.json(action)
