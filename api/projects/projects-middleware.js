@@ -14,9 +14,9 @@ function checkProjectId (req, res, next) {
 }
 
 function checkProjectShape (req, res, next) {
-    const { name, description } = req.body;
-    if (!name || !description) {
-        res.status(400).json({message: 'Projects need to have a name and a description.'})
+    const { name, description, completed } = req.body;
+    if (!name || !description || typeof completed !== 'boolean') {
+        res.status(400).json({message: 'Projects need to have a name, description, and completed status.'})
     } else { next() }
 }
 
