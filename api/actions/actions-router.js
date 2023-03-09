@@ -24,6 +24,15 @@ router.post('/', checkActionBody, (req, res, next) => {
         .catch(next)
 })
 
+router.delete('/:id', checkActionId, (req, res, next) => {
+    Actions.remove(req.params.id)
+        .then(noDeleted => {
+            console.log(`Successfully deleted ${noDeleted} action with ID ${req.params.id}.`);
+            res.json()
+        })
+        .catch(next)
+})
+
 router.use((err, req, res, next) => {
     res.status(err.status || 500).json({
         message: err.message,
