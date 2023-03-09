@@ -19,7 +19,15 @@ router.get('/:id', checkActionId, (req, res, next) => {
 router.post('/', checkActionBody, (req, res, next) => {
     Actions.insert(req.body)
         .then(action => {
-            res.json(action)
+            res.status(201).json(action)
+        })
+        .catch(next)
+})
+
+router.put('/:id', checkActionId, checkActionBody, (req, res, next) => {
+    Actions.update(req.params.id, req.body)
+        .then(updatedAction => {
+            res.json(updatedAction)
         })
         .catch(next)
 })
